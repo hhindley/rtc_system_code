@@ -43,5 +43,3 @@ plot!(sol1.t, [ribo_d1, ribo_h1, ribo_t1], xaxis=(:log10, (1,Inf)), labels=["Rd"
 
 plot(sol.t, ribo_d+ribo_h+ribo_t+rdrtca+rtrtcb, xaxis=(:log10, (1,Inf)), labels="Rtot-full")
 plot(sol1.t, ribo_d1+ribo_h1+ribo_t1+rdrtca1+rtrtcb1, xaxis=(:log10, (1,Inf)), margin=16mm, labels="Rtot")
-
-print(maximum(ribo_h))
