@@ -814,3 +814,18 @@ function split_riboint(species, solution) # 3
 
     return rm_a, rtca, rm_b, rtcb, rm_r, rtcr, ribo_d, ribo_h, ribo_t, alpha, fa, ra, v, tscr, tlr, tscr_b, tlr_b, rtcr_tscr, rtcr_tlr, rdrtca, rtrtcb
 end
+
+
+function split_full_model(species, solution)
+    solDF = DataFrame([[j[i] for j in solution.u] for i=1:length(solution.u[1])], species)
+    return solDF[:, :rm_a], solDF[:, :rtca], solDF[:, :rm_b], solDF[:, :rtcb], solDF[:, :rm_r], solDF[:, :rtcr], solDF[:, :rdrtca], solDF[:, :rtrtcb], solDF[:, :ribo_d], solDF[:, :ribo_h], solDF[:, :ribo_t]
+end
+
+
+function split_reduced_model(species, solution)
+    solDF = DataFrame([[j[i] for j in solution.u] for i=1:length(solution.u[1])], species)
+    rdrtca = k1_a.*solDF[:, :ribo_d].*solDF[:, :rtca]./(k1_a.*solDF[:, :ribo_d].+k2_a.+k3_a.*atp)
+    rtrtcb = ka_b.*solDF[:, :ribo_t].*solDF[:, :rtcb]./(ka_b.*solDF[:, :ribo_t].+kb_b.+kc_b.*atp)
+    ribo_h = ribo_tot .- solDF[:, :ribo_d] .- solDF[:, :ribo_t] .- rdrtca .- rtrtcb
+    return solDF[:, :rm_a], solDF[:, :rtca], solDF[:, :rm_b], solDF[:, :rtcb], solDF[:, :rm_r], solDF[:, :rtcr], rdrtca, rtrtcb, solDF[:, :ribo_d], ribo_h, solDF[:, :ribo_t]
+end

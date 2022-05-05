@@ -7,8 +7,13 @@ include("models_new.jl")
 # sol_alg = simple_solve!(full_alg!, init_alg, tspan, params_alg) # rh and ints as algebraic - all algebraic 
 # p2_sol = plot(sol_alg[2:end], yaxis=(:log10, (1,Inf)), xaxis=(:log10, (1,Inf)), labels=labels_alg, palette=:tab10, title="2 - all algebraic (ints and rh)");
 
-sol_full = simple_solve!(new_ODEs!, init_full, tspan, params_full)  # all ribosomes as ODEs and ints as odes - all odes 
-p3_sol = plot(sol_full[2:end], yaxis=(:log10, (1,Inf)), xaxis=(:log10, (1,Inf)), labels=labels_full, palette=:tab10, title="3 - all ODEs (ints and rh)");
+# sol_full = simple_solve!(full_ODEs!, init_full, tspan, params_full)  # all ribosomes as ODEs and ints as odes - all odes 
+# p3_sol = plot(sol_full[2:end], yaxis=(:log10, (1,Inf)), xaxis=(:log10, (1,Inf)), labels=labels_full, palette=:tab10,  title="5 - new ODEs")#title="3 - all ODEs (ints and rh)")
+
+sol_full = simple_solve!(new_ODEs!, init_new, tspan, params_new)  # all ribosomes as ODEs and ints as odes - all odes 
+p3_sol = plot(sol_full[2:end], yaxis=(:log10, (1,Inf)), xaxis=(:log10, (1,Inf)), labels=labels_new, palette=:tab10,  title="5 - new ODEs")#title="3 - all ODEs (ints and rh)")
+
+
 
 
 # sol_mix2 = simple_solve!(mix2!, init_mix2, tspan, params_mix2) # ints as odes and rh algebraic
@@ -18,7 +23,7 @@ p3_sol = plot(sol_full[2:end], yaxis=(:log10, (1,Inf)), xaxis=(:log10, (1,Inf)),
 # p1_sol = plot(sol_mix1[2:end], yaxis=(:log10, (1,Inf)), xaxis=(:log10, (1,Inf)), labels=labels_mix1, palette=:tab10, title="1 - all ribo ODEs, ints algebraic");
 
 sol_rtc = simple_solve!(RTC_SYSTEM!, init_rtc, tspan, params_rtc) #all ribosomes as ODEs, ints algebraic 
-p5_sol = plot(sol_rtc[2:end], yaxis=(:log10, (1,Inf)), xaxis=(:log10, (1,Inf)), labels=labels_rtc, palette=:tab10, title="final working model");
+p5_sol = plot(sol_rtc[2:end], yaxis=(:log10, (1,Inf)), xaxis=(:log10, (1,Inf)), labels=labels_rtc, palette=:tab10, title="final working model")
 
 # plot(p5_sol, p2_sol, p3_sol, p4_sol, size=(1000,800))
 plot(p5_sol, p3_sol, size=(800,400))
@@ -87,7 +92,7 @@ plot(p_ribo5, p_ribo3, size=(800,400))
 plot(p_int5, p_int3, size=(800,400))
 plot(p_rtot5, p_rtot3, size=(800,400), plot_title="rtot")
 
-plot(sol_full.t, [ribo_d3+ribo_h3+ribo_t3], xaxis=(:log10, (1,Inf)),title="3 - ribo odes and int odes", legend=false)
+plot(sol_full.t, [ribo_d3+ribo_h3+ribo_t3], xaxis=(:log10, (1,Inf)),title="3 - ribo odes and int odes", labels="Rd+Rt+Rh")
 
 # p1_i = plot(sol_mix1.t, [rtca1+rdrtca1, rtcb1+rtrtcb1], title="1 - ribo odes, ints alg", labels=["RtcA" "RtcB"], yaxis=(:log10, (1,Inf)), xaxis=(:log10, (1,Inf)));
 # p2_i = plot(sol_alg.t, [rtca2+rdrtca2, rtcb2+rtrtcb2], title="2 - ints and ribo h as algebraic", labels=["RtcA" "RtcB"], yaxis=(:log10, (1,Inf)), xaxis=(:log10, (1,Inf)));

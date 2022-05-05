@@ -97,3 +97,9 @@ params_rtc = [kr, L, c, sigma, atp, k1, k2, k3, k4, k5, w_rtc, theta_rtc, max, t
 init_rtc = [rm_a_0, rtca_0, rm_b_0, rtcb_0, rm_r_0, rtcr_0, ribo_d_0, ribo_t_0]
 labels_rtc = ["mRNA-RtcA" "RtcA" "mRNA-RtcB" "RtcB" "mRNA-RtcR" "RtcR" "Rd" "Rt"]
 species_rtc = [:rm_a, :rtca, :rm_b, :rtcb, :rm_r, :rtcr, :ribo_d, :ribo_t]
+
+params_new = [kr, L, c, sigma, atp, w_rtc, theta_rtc, max, thr, d, k1, k2, k3, k4, k5, k1_a, k2_a, k3_a, ka_b, kb_b, kc_b, k]
+init_new = [rm_a_0, rtca_0, rm_b_0, rtcb_0, rm_r_0, rtcr_0, rdrtca_0, rtrtcb_0, ribo_h_0, ribo_d_0, ribo_t_0]
+labels_new = ["mRNA-RtcA" "RtcA" "mRNA-RtcB" "RtcB" "mRNA-RtcR" "RtcR" "RdRtcA" "RtRtcB" "Rh" "Rd" "Rt"]
+
+
