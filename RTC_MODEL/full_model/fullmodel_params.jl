@@ -4,8 +4,8 @@ global k2 = 0.1;
 global k3 = 0.1;
 global k4 = 0.1;
 global k5 = 10;
-global sigma = 10;
-global atp = 8;
+global sigma = 10# 10;
+global atp = 10;
 # rtcr = 10; #10;
 # rt = 10; # 10;
 global kr = 10;
@@ -27,7 +27,7 @@ ka_b = 0.1; #0
 kb_b = 0.1; #0
 kc_b = 1; #0
 k = 0.05; #0
-
+d1 = 0.001;
 # rtc
 rm_a_0 = 0;
 rtca_0 = 1;
@@ -85,7 +85,7 @@ init_full = [rm_a_0, rtca_0, rm_b_0, rtcb_0, rm_r_0, rtcr_0, rdrtca_0, rtrtcb_0,
 labels_full = ["mRNA-RtcA" "RtcA" "mRNA-RtcB" "RtcB" "mRNA-RtcR" "RtcR" "RdRtcA" "RtRtcB" "Rh" "Rd" "Rt"]
 species_full = [:rm_a, :rtca, :rm_b, :rtcb, :rm_r, :rtcr, :rdrtca, :rtrtcb, :ribo_h, :ribo_d, :ribo_t]
 
-params_alg = [kr, L, c, sigma, atp, k1, k2, k3, k4, k5, w_rtc, theta_rtc, max, thr, d, k1_a, k2_a, k3_a, ka_b, kb_b, kc_b, k, rtca_tot, rtcb_tot, ribo_tot]
+params_alg = [kr, L, c, sigma, atp, k1, k2, k3, k4, k5, w_rtc, theta_rtc, max, thr, d, k1_a, k2_a, k3_a, ka_b, kb_b, kc_b, k, ribo_tot]
 init_alg = [rm_a_0, rtca_0, rm_b_0, rtcb_0, rm_r_0, rtcr_0, ribo_d_0, ribo_t_0];
 labels_alg = ["mRNA-RtcA" "RtcA" "mRNA-RtcB" "RtcB" "mRNA-RtcR" "RtcR" "Rd" "Rt"]
 species_alg = [:rm_a, :rtca, :rm_b, :rtcb, :rm_r, :rtcr, :ribo_d, :ribo_t]
@@ -94,11 +94,11 @@ labels_all = ["mRNA-RtcA" "RtcA" "mRNA-RtcB" "RtcB" "mRNA-RtcR" "RtcR" "RdRtcA" 
 
 
 params_rtc = [kr, L, c, sigma, atp, k1, k2, k3, k4, k5, w_rtc, theta_rtc, max, thr, d, k1_a, k2_a, k3_a, ka_b, kb_b, kc_b, k, ribo_tot]
-init_rtc = [rm_a_0, rtca_0, rm_b_0, rtcb_0, rm_r_0, rtcr_0, ribo_d_0, ribo_t_0]
-labels_rtc = ["mRNA-RtcA" "RtcA" "mRNA-RtcB" "RtcB" "mRNA-RtcR" "RtcR" "Rd" "Rt"]
-species_rtc = [:rm_a, :rtca, :rm_b, :rtcb, :rm_r, :rtcr, :ribo_d, :ribo_t]
+init_rtc = [rm_a_0, rtca_0, rm_b_0, rtcb_0, rm_r_0, rtcr_0, ribo_h_0, ribo_d_0, ribo_t_0]
+labels_rtc = ["mRNA-RtcA" "RtcA" "mRNA-RtcB" "RtcB" "mRNA-RtcR" "RtcR" "Rh" "Rd" "Rt"]
+species_rtc = [:rm_a, :rtca, :rm_b, :rtcb, :rm_r, :rtcr, :ribo_h, :ribo_d, :ribo_t]
 
-params_new = [kr, L, c, sigma, atp, w_rtc, theta_rtc, max, thr, d, k1, k2, k3, k4, k5, k1_a, k2_a, k3_a, ka_b, kb_b, kc_b, k]
+params_new = [kr, L, c, sigma, atp, w_rtc, theta_rtc, max, thr, d, k1, k2, k3, k4, k5, k1_a, k2_a, k3_a, ka_b, kb_b, kc_b, k, d1]
 init_new = [rm_a_0, rtca_0, rm_b_0, rtcb_0, rm_r_0, rtcr_0, rdrtca_0, rtrtcb_0, ribo_h_0, ribo_d_0, ribo_t_0]
 labels_new = ["mRNA-RtcA" "RtcA" "mRNA-RtcB" "RtcB" "mRNA-RtcR" "RtcR" "RdRtcA" "RtRtcB" "Rh" "Rd" "Rt"]
 
