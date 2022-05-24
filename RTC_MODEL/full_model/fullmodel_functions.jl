@@ -1,6 +1,6 @@
 function simple_solve!(model, init, tspan, params)
     prob = ODEProblem(model, init, tspan, params);
-    sol = solve(prob, Rodas4(), abstol=1e-15, reltol=1e-12);
+    sol = solve(prob, Rodas4())#, abstol=1e-15, reltol=1e-12);
     return sol
 end
 
@@ -894,11 +894,18 @@ end
 
 function split_reduced_model_steady_state(species, solution)
     solDF = DataFrame([[j[i] for j in solution.u] for i=1:length(solution.u[1])], species)
-    rdrtca = k1_a.*solDF[end, :ribo_d].*solDF[end, :rtca]./(k1_a.*solDF[end, :ribo_d].+k2_a.+k3_a.*atp)
-    rtrtcb = ka_b.*solDF[end, :ribo_t].*solDF[end, :rtcb]./(ka_b.*solDF[end, :ribo_t].+kb_b.+kc_b.*atp)
-    # rdrtca = solDF[:, :rtca].*k1.*solDF[:, :ribo_d].*(k4.+k3_a)./(k2.*k4.+k2.*k3_a.+k3.*atp.*k3_a.+k1.*solDF[:, :ribo_d].*(k4.+k3_a.+k3.*atp))
-    # rtrtcb = solDF[:, :rtcb].*k1.*solDF[:, :ribo_t].*(k4.+k3_a)./(k2.*k4.+k2.*k3_a.+k3.*atp.*k3_a.+k1.*solDF[:, :ribo_t].*(k4.+k3_a.+k3.*atp))
-    return solDF[end, :rm_a], solDF[end, :rtca], solDF[end, :rm_b], solDF[end, :rtcb], solDF[end, :rm_r], solDF[end, :rtcr], rdrtca, rtrtcb, solDF[end, :ribo_h], solDF[end, :ribo_d], solDF[end, :ribo_t]
+    rm_a = solDF[end, :rm_a]
+    rtca = solDF[end, :rtca]
+    rm_b = solDF[end, :rm_b]
+    rtcb = solDF[end, :rtcb]
+    rm_r = solDF[end, :rm_r]
+    rtcr = solDF[end, :rtcr]
+    ribo_h = solDF[end, :ribo_h]
+    ribo_d = solDF[end, :ribo_d]
+    ribo_t = solDF[end, :ribo_t]
+    rdrtca = @. k1_a*solDF[end, :ribo_d]*solDF[end, :rtca]/(k1_a*solDF[end, :ribo_d]+k2_a+k3_a*atp)
+    rtrtcb = @. ka_b*solDF[end, :ribo_t]*solDF[end, :rtcb]/(ka_b*solDF[end, :ribo_t]+kb_b+kc_b*atp)
+    return rm_a, rtca, rm_b, rtcb, rm_r, rtcr, rdrtca, rtrtcb, ribo_h, ribo_d, ribo_t
 end
 
 function split_full_model_steady_state(species, solution)
@@ -908,7 +915,7 @@ end
 
 function param_vs_ss(long_range, param_or_init, x, model, init, params, species)
     sols, sols_t, rm_a_sols, rtca_sols, rm_b_sols, rtcb_sols, rm_r_sols, rtcr_sols, rdrtca_sols, rtrtcb_sols, ribo_h_sols, ribo_d_sols, ribo_t_sols, ribo_tot_sols = empty_res()
-    for i in long_range
+    for i in ProgressBar(long_range)
         param_or_init[x] = i
         sol = simple_solve!(model, init, tspan, params)
         rm_a, rtca, rm_b, rtcb, rm_r, rtcr, rdrtca, rtrtcb, ribo_h, ribo_d, ribo_t = split_reduced_model_steady_state(species, sol)
@@ -940,7 +947,7 @@ function plot_long_range_results(long_range, param_or_init, x, model, init, para
     p6 = plot(long_range, [rdrtca_sols, rtrtcb_sols], labels=["RdRtcA" "RtRtcB"], xaxis="$param_name", yaxis="amount of species", labelfontsize=8)
     p7 = plot(long_range, [rm_a_sols, rm_b_sols], labels=["mRNA-RtcA" "mRNA-RtcB"], xaxis="$param_name", yaxis="amount of species", labelfontsize=8)
     p8 = plot(long_range, [rm_r_sols], labels="mRNA-RtcR", xaxis="$param_name", yaxis="amount of species", labelfontsize=8)
-    plot(p1, p2, p3, p4, p5, p6, p7, p8, plot_title="$param_name effect", layout=(2,4), size=(800,400))
+    plot(p1, p2, p3, p4, p5, p6, p7, p8, plot_title="$param_name effect", layout=(2,4), size=(1000,600))
 end
 
 function full_plot_long_range_results(long_range, param_or_init, x, model, init, params, species, param_name)
@@ -954,5 +961,80 @@ function full_plot_long_range_results(long_range, param_or_init, x, model, init,
     p6 = plot(long_range, [rdrtca_sols, rtrtcb_sols], labels=["RdRtcA" "RtRtcB"], xaxis="$param_name", yaxis="amount of species", labelfontsize=8)
     p7 = plot(long_range, [rm_a_sols, rm_b_sols], labels=["mRNA-RtcA" "mRNA-RtcB"], xaxis="$param_name", yaxis="amount of species", labelfontsize=8)
     p8 = plot(long_range, [rm_r_sols], labels="mRNA-RtcR", xaxis="$param_name", yaxis="amount of species", labelfontsize=8)
-    plot(p1, p2, p3, p4, p5, p6, p7, p8, plot_title="$param_name effect - full", layout=(2,4), size=(800,400))
+    plot(p1, p2, p3, p4, p5, p6, p7, p8, plot_title="$param_name effect - full", layout=(2,4), size=(1000,600))
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# for long ranges for varying parameter this code is quicker than above as it doesn't have the unnessecary bits
+
+function empty_res1()
+    rm_a=[]
+    rtca=[]
+    rm_b=[]
+    rtcb=[]
+    rm_r=[]
+    rtcr=[]
+    ribo_h=[]
+    ribo_d=[]
+    ribo_t=[]
+    rdrtca=[]
+    rtrtcb=[]
+    return rm_a, rtca, rm_b, rtcb, rm_r, rtcr, rdrtca, rtrtcb, ribo_h, ribo_d, ribo_t
+end
+
+function fill_empty_arrays1(rm_a_sols, rtca_sols, rm_b_sols, rtcb_sols, rm_r_sols, rtcr_sols, rdrtca_sols, rtrtcb_sols, ribo_h_sols, ribo_d_sols, ribo_t_sols, rm_a, rtca, rm_b, rtcb, rm_r, rtcr, rdrtca, rtrtcb, ribo_h, ribo_d, ribo_t)
+    push!(rm_a_sols, rm_a)
+    push!(rtca_sols, rtca)
+    push!(rm_b_sols, rm_b)
+    push!(rtcb_sols, rtcb)
+    push!(rm_r_sols, rm_r)
+    push!(rtcr_sols, rtcr)
+    push!(ribo_h_sols, ribo_h)
+    push!(ribo_d_sols, ribo_d)
+    push!(ribo_t_sols, ribo_t)
+    push!(rdrtca_sols, rdrtca)
+    push!(rtrtcb_sols, rtrtcb)
+
+    return rm_a_sols, rtca_sols, rm_b_sols, rtcb_sols, rm_r_sols, rtcr_sols, rdrtca_sols, rtrtcb_sols, ribo_h_sols, ribo_d_sols, ribo_t_sols
+end
+
+function split_reduced_model_steady_state(species, solution)
+    solDF = DataFrame([[j[i] for j in solution.u] for i=1:length(solution.u[1])], species)
+    rm_a = solDF[end, :rm_a]
+    rtca = solDF[end, :rtca]
+    rm_b = solDF[end, :rm_b]
+    rtcb = solDF[end, :rtcb]
+    rm_r = solDF[end, :rm_r]
+    rtcr = solDF[end, :rtcr]
+    ribo_h = solDF[end, :ribo_h]
+    ribo_d = solDF[end, :ribo_d]
+    ribo_t = solDF[end, :ribo_t]
+    rdrtca = @. k1_a*solDF[end, :ribo_d]*solDF[end, :rtca]/(k1_a*solDF[end, :ribo_d]+k2_a+k3_a*atp)
+    rtrtcb = @. ka_b*solDF[end, :ribo_t]*solDF[end, :rtcb]/(ka_b*solDF[end, :ribo_t]+kb_b+kc_b*atp)
+    return rm_a, rtca, rm_b, rtcb, rm_r, rtcr, rdrtca, rtrtcb, ribo_h, ribo_d, ribo_t
+end
+
+
+function param_vs_ss(long_range, param_or_init, x, model, init, params, species)
+    rm_a_sols, rtca_sols, rm_b_sols, rtcb_sols, rm_r_sols, rtcr_sols, rdrtca_sols, rtrtcb_sols, ribo_h_sols, ribo_d_sols, ribo_t_sols = empty_res1()
+    for i in ProgressBar(long_range)
+        param_or_init[x] = i
+        sol = simple_solve!(model, init, tspan, params)
+        rm_a, rtca, rm_b, rtcb, rm_r, rtcr, rdrtca, rtrtcb, ribo_h, ribo_d, ribo_t = split_reduced_model_steady_state(species, sol)
+        rm_a_sols, rtca_sols, rm_b_sols, rtcb_sols, rm_r_sols, rtcr_sols, rdrtca_sols, rtrtcb_sols, ribo_h_sols, ribo_d_sols, ribo_t_sols = fill_empty_arrays1(rm_a_sols, rtca_sols, rm_b_sols, rtcb_sols, rm_r_sols, rtcr_sols, rdrtca_sols, rtrtcb_sols, ribo_h_sols, ribo_d_sols, ribo_t_sols, rm_a, rtca, rm_b, rtcb, rm_r, rtcr, rdrtca, rtrtcb, ribo_h, ribo_d, ribo_t)
+    end
+    return rm_a_sols, rtca_sols, rm_b_sols, rtcb_sols, rm_r_sols, rtcr_sols, rdrtca_sols, rtrtcb_sols, ribo_h_sols, ribo_d_sols, ribo_t_sols
 end

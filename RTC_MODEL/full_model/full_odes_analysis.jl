@@ -206,79 +206,79 @@ atp_plot = full_plot_long_range_results(atp_range_long, params_new, 5, new_ODEs!
 
 kr_range_long = range(0.01,100, length=20)
 include("fullmodel_params.jl")
-kr_plot = full_plot_long_range_results(atp_range_long, params_new, 1, new_ODEs!, init_new, params_new, species_full, "kr")
+kr_plot = full_plot_long_range_results(kr_range_long, params_new, 1, new_ODEs!, init_new, params_new, species_full, "kr")
 
 L_range_long = range(0,100, length=20)
 include("fullmodel_params.jl")
-L_plot = full_plot_long_range_results(atp_range_long, params_new, 2, new_ODEs!, init_new, params_new, species_full, "L")
+L_plot = full_plot_long_range_results(L_range_long, params_new, 2, new_ODEs!, init_new, params_new, species_full, "L")
 
 c_range_long = range(0,100, length=20)
 include("fullmodel_params.jl")
-c_plot = full_plot_long_range_results(atp_range_long, params_new, 3, new_ODEs!, init_new, params_new, species_full, "c")
+c_plot = full_plot_long_range_results(c_range_long, params_new, 3, new_ODEs!, init_new, params_new, species_full, "c")
 
 sigma_range_long = range(0,10, length=20)
 include("fullmodel_params.jl")
-sigma_plot = full_plot_long_range_results(atp_range_long, params_new, 4, new_ODEs!, init_new, params_new, species_full, "sigma")
+sigma_plot = full_plot_long_range_results(sigma_range_long, params_new, 4, new_ODEs!, init_new, params_new, species_full, "sigma")
 
 k1_range_long = range(0,1, length=20)
 include("fullmodel_params.jl")
-k1_plot = full_plot_long_range_results(atp_range_long, params_new, 11, new_ODEs!, init_new, params_new, species_full, "k1")
+k1_plot = full_plot_long_range_results(k1_range_long, params_new, 11, new_ODEs!, init_new, params_new, species_full, "k1")
 
 k2_range_long = range(0,1, length=20)
 include("fullmodel_params.jl")
-k2_plot = full_plot_long_range_results(atp_range_long, params_new, 12, new_ODEs!, init_new, params_new, species_full, "k2")
+k2_plot = full_plot_long_range_results(k2_range_long, params_new, 12, new_ODEs!, init_new, params_new, species_full, "k2")
 
 k3_range_long = range(0,1, length=20)
 include("fullmodel_params.jl")
-k3_plot = full_plot_long_range_results(atp_range_long, params_new, 13, new_ODEs!, init_new, params_new, species_full, "k3")
+k3_plot = full_plot_long_range_results(k3_range_long, params_new, 13, new_ODEs!, init_new, params_new, species_full, "k3")
 
 k4_range_long = range(0,1, length=20)
 include("fullmodel_params.jl")
-k4_plot = full_plot_long_range_results(atp_range_long, params_new, 14, new_ODEs!, init_new, params_new, species_full, "k4")
+k4_plot = full_plot_long_range_results(k4_range_long, params_new, 14, new_ODEs!, init_new, params_new, species_full, "k4")
 
 k5_range_long = range(0,1, length=20)
 include("fullmodel_params.jl")
-k5_plot = full_plot_long_range_results(atp_range_long, params_new, 15, new_ODEs!, init_new, params_new, species_full, "k5")
+k5_plot = full_plot_long_range_results(k5_range_long, params_new, 15, new_ODEs!, init_new, params_new, species_full, "k5")
 
 wrtc_range_long = range(0,10, length=20)
 include("fullmodel_params.jl")
-wrtc_plot = full_plot_long_range_results(atp_range_long, params_new, 6, new_ODEs!, init_new, params_new, species_full, "wrtc")
+wrtc_plot = full_plot_long_range_results(wrtc_range_long, params_new, 6, new_ODEs!, init_new, params_new, species_full, "wrtc")
 
 theta_range_long = range(0,20, length=20)
 include("fullmodel_params.jl")
-theta_plot = full_plot_long_range_results(atp_range_long, params_new, 7, new_ODEs!, init_new, params_new, species_full, "theta")
+theta_plot = full_plot_long_range_results(theta_range_long, params_new, 7, new_ODEs!, init_new, params_new, species_full, "theta")
 
 max_range_long = range(0,10, length=20)
 include("fullmodel_params.jl")
-max_plot = full_plot_long_range_results(atp_range_long, params_new, 8, new_ODEs!, init_new, params_new, species_full, "max")
+max_plot = full_plot_long_range_results(max_range_long, params_new, 8, new_ODEs!, init_new, params_new, species_full, "max")
 
 thr_range_long = range(0,10, length=20)
 include("fullmodel_params.jl")
-thr_plot = full_plot_long_range_results(atp_range_long, params_new, 9, new_ODEs!, init_new, params_new, species_full, "thr")
+thr_plot = full_plot_long_range_results(thr_range_long, params_new, 9, new_ODEs!, init_new, params_new, species_full, "thr")
 
 k1a_range_long = range(0,2, length=20)
 include("fullmodel_params.jl")
-k1a_plot = full_plot_long_range_results(atp_range_long, params_new, 16, new_ODEs!, init_new, params_new, species_full, "k1a")
+k1a_plot = full_plot_long_range_results(k1a_range_long, params_new, 16, new_ODEs!, init_new, params_new, species_full, "k1a")
 
 k2a_range_long = range(0,2, length=20)
 include("fullmodel_params.jl")
-k2a_plot = full_plot_long_range_results(atp_range_long, params_new, 17, new_ODEs!, init_new, params_new, species_full, "k2a")
+k2a_plot = full_plot_long_range_results(k2a_range_long, params_new, 17, new_ODEs!, init_new, params_new, species_full, "k2a")
 
 k3a_range_long = range(0,1, length=20)
 include("fullmodel_params.jl")
-k3a_plot = full_plot_long_range_results(atp_range_long, params_new, 18, new_ODEs!, init_new, params_new, species_full, "k3a")
+k3a_plot = full_plot_long_range_results(k3a_range_long, params_new, 18, new_ODEs!, init_new, params_new, species_full, "k3a")
 
 kab_range_long = range(0,2, length=20)
 include("fullmodel_params.jl")
-kab_plot = full_plot_long_range_results(atp_range_long, params_new, 19, new_ODEs!, init_new, params_new, species_full, "kab")
+kab_plot = full_plot_long_range_results(kab_range_long, params_new, 19, new_ODEs!, init_new, params_new, species_full, "kab")
 
 kbb_range_long = range(0,2, length=20)
 include("fullmodel_params.jl")
-kbb_plot = full_plot_long_range_results(atp_range_long, params_new, 20, new_ODEs!, init_new, params_new, species_full, "kbb")
+kbb_plot = full_plot_long_range_results(kbb_range_long, params_new, 20, new_ODEs!, init_new, params_new, species_full, "kbb")
 
 kcb_range_long = range(0,1, length=20)
 include("fullmodel_params.jl")
-kcb_plot = full_plot_long_range_results(atp_range_long, params_new, 21, new_ODEs!, init_new, params_new, species_full, "kcb")
+kcb_plot = full_plot_long_range_results(kcb_range_long, params_new, 21, new_ODEs!, init_new, params_new, species_full, "kcb")
 
 k_range_long = range(0,10, length=20)
 include("fullmodel_params.jl")

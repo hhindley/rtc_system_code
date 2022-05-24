@@ -1,23 +1,23 @@
 
-global k1 = 0.1; 
-global k2 = 0.1;
-global k3 = 0.1;
-global k4 = 0.1;
-global k5 = 10;
-global sigma = 10# 10;
-global atp = 10;
+k1 = 0.1; 
+k2 = 0.1;
+k3 = 0.1;
+k4 = 0.1;
+k5 = 10;
+sigma = 10# 10;
+atp = 10;
 # rtcr = 10; #10;
 # rt = 10; # 10;
-global kr = 10;
+kr = 10;
 # global kt = 1000;
-global L = 100; # t0/r0
-global c = 0.01; #kr/kt
-global w_rtc = 4.14 # 5 # 10;    # max. transcription rate 
-global theta_rtc = 20 # 4.38 # 5000;  # transcription threshold
-global max = 4;            # max. translation rate 
-global thr = 20 #7 # 5000;        # translation threshold 
+L = 100; # t0/r0
+c = 0.01; #kr/kt
+w_rtc = 4.14 # 5 # 10;    # max. transcription rate 
+theta_rtc = 20 # 4.38 # 5000;  # transcription threshold
+max = 4;            # max. translation rate 
+thr = 20 #7 # 5000;        # translation threshold 
 # r = 10;
-global d = 0.01;
+d = 0.01;
 
 #ribosomes
 k1_a = 0.1; #0
@@ -101,5 +101,4 @@ species_rtc = [:rm_a, :rtca, :rm_b, :rtcb, :rm_r, :rtcr, :ribo_h, :ribo_d, :ribo
 params_new = [kr, L, c, sigma, atp, w_rtc, theta_rtc, max, thr, d, k1, k2, k3, k4, k5, k1_a, k2_a, k3_a, ka_b, kb_b, kc_b, k, d1]
 init_new = [rm_a_0, rtca_0, rm_b_0, rtcb_0, rm_r_0, rtcr_0, rdrtca_0, rtrtcb_0, ribo_h_0, ribo_d_0, ribo_t_0]
 labels_new = ["mRNA-RtcA" "RtcA" "mRNA-RtcB" "RtcB" "mRNA-RtcR" "RtcR" "RdRtcA" "RtRtcB" "Rh" "Rd" "Rt"]
-
 
